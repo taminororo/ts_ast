@@ -18,3 +18,33 @@ if (args.length === 0) {
   info(helpMessage);
   process.exit(1);
 }
+
+// --- 以下を追加 ---
+let [inputFilePath, ...restArgs] = args;
+// コマンドの1つ目の引数に、入力ファイルパスが指定されていない場合はエラーにする
+if (!inputFilePath || inputFilePath.startsWith('--')) {
+  error('Input file path is required');
+  info(helpMessage);
+  process.exit(1);
+}
+ 
+let outputFilePath = '';
+for (let i = 0; i < restArgs.length; i++) {
+  const arg = restArgs[i];
+ 
+  if (arg === '--out') {
+	// --outオプションが指定された場合、次の引数を出力ファイルパスとして取得する
+	// 次の引数がない、または次の引数がオプション形式(--で始まる)ならエラーにする
+	if (i + 1 >= args.length || restArgs[i + 1].startsWith('--')) {
+  	error('--out requires a file path');
+  	process.exit(1);
+	}
+	outputFilePath = restArgs[++i];
+  } else if (arg === '--debug') {
+	// --debugオプションが指定された場合、デバッグモードを有効にする
+	process.env.DEBUG = 'true';
+  } else {
+	error(`Unknown argument: ${arg}`);
+	process.exit(1);
+  }
+}
