@@ -48,3 +48,32 @@ for (let i = 0; i < restArgs.length; i++) {
 	process.exit(1);
   }
 }
+
+// 入力ファイルを読み込む
+try {
+  const absoluteInputPath = path.resolve(inputFilePath);
+  const data = (await fs.readFile(absoluteInputPath)).toString();
+
+  debug(`Input file path: ${absoluteInputPath}`);
+  debug(`Input file content:\n${data}`);
+
+  const reverseData = data.split("").reverse().join("");
+
+  if (outputFilePath) {
+    // 出力ファイルパスが指定されている場合，内容を逆順にしてファイルに書き込む
+    const absoluteOutputPath = path.resolve(outputFilePath);
+    await fs.writeFile(absoluteOutputPath, reverseData);
+
+    debug('Oputput written to: ${absoluteOutputPath}');
+  } else {
+    // 出力ファイルパスが指定されていない場合，コンソールに出力する
+    info('Reversed file content:\n${reversedData}');
+  }
+} catch (err) {
+  if (err instanceof Error) {
+    error(err.message);
+  } else {
+    error('An unknown error occurred');
+  }
+  process.exit(1);
+}
