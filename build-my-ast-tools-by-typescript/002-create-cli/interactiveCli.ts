@@ -47,6 +47,25 @@ try {
     }
 
 
+    // basiciCli.tsと処理は一緒
+    const absoluteInputPath = path.resolve(inputFilePath);
+    const data = (await fs.readFile(absoluteInputPath)).toString();
+    
+    debug(`Input file path: ${absoluteInputPath}`);
+    debug(`Input file content:\n${data}`);
+    
+    const reversedData = data.split('').reverse().join('');
+    if (outputFilePath) {
+        const absoluteOutputPath = path.resolve(outputFilePath);
+        await fs.writeFile(absoluteOutputPath, reversedData);
+        debug(`Output written to: ${absoluteOutputPath}`);
+    } else {
+        info(`Reversed file content:\n${reversedData}`);
+    }
+    
+    // readline インターフェースを閉じる
+    rl.close();
+
 } catch (err) {
     if (err instanceof Error) {
         error(err.message);
