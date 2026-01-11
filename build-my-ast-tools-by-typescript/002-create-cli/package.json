@@ -1,7 +1,8 @@
 {
-  "name": "002-create-cli",
+  "name": "@taminororo/002-create-cli",
   "bin": {
-    "basic-cli": "dist/basicCli.js"
+    "basic-cli": "dist/basicCli.js",
+    "interactive-cli": "dist/interactiveCli.js"
   },
   "version": "1.0.0",
   "description": "",
@@ -18,6 +19,10 @@
   "type": "module",
   "devDependencies": {
     "@types/node": "^25.0.3",
+    "@typescript/native-preview": "^7.0.0-dev.20260109.1",
     "typescript": "^5.9.3"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
