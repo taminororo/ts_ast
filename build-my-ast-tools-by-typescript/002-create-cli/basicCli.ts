@@ -13,6 +13,7 @@ const helpMessage =
  
 // コマンドの引数を取得(0番目はnodeの実行パス、1番目はスクリプトのパスなので省く)
 const args = process.argv.slice(2);
+console.log("デバッグ: 受け取った引数はこれです ->", args);
 // 引数が不足している場合はヘルプメッセージを表示
 if (args.length === 0) {
   info(helpMessage);
@@ -21,6 +22,8 @@ if (args.length === 0) {
 
 // --- 以下を追加 ---
 let [inputFilePath, ...restArgs] = args;
+console.log("デバッグ: 残りの引数(restArgs)はこれです ->", restArgs);
+console.log("デバッグ: 入力ファイルパス(inputFilePath)はこれです ->", inputFilePath);
 // コマンドの1つ目の引数に、入力ファイルパスが指定されていない場合はエラーにする
 if (!inputFilePath || inputFilePath.startsWith('--')) {
   error('Input file path is required');
@@ -67,7 +70,7 @@ try {
     debug('Oputput written to: ${absoluteOutputPath}');
   } else {
     // 出力ファイルパスが指定されていない場合，コンソールに出力する
-    info('Reversed file content:\n${reversedData}');
+    info(`Reversed file content:\n${reverseData}`);
   }
 } catch (err) {
   if (err instanceof Error) {
