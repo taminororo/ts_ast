@@ -6,6 +6,7 @@ import path from 'node:path';
 // カスタムコンソールモジュールをインポート
 import { debug, error, info } from './console.ts';
 import { createAst } from './createAst.ts'; // 追加: createAst関数をインポート
+import { traverseAst } from './traverseAst.ts';
  
 console.log('Welcome to the Analyze AST CLI!');
  
@@ -50,7 +51,10 @@ try {
  
   const ast = await createAst(absoluteInputPath); // 追加: `const reversedData = data.split("").reverse().join("");` を置き換え
   // コンソールに出力する
-  info(`Ast kind: ${ast.kind}`); // 追加: `info(`Reversed file content:\n${reversedData}`);` を置き換え
+  //info(`Ast kind: ${ast.kind}`); // 追加: `info(`Reversed file content:\n${reversedData}`);` を置き換え
+
+ traverseAst(ast);
+
 } catch (err) {
   if (err instanceof Error) {
     error(err.message);
