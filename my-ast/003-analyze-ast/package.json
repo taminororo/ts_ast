@@ -1,7 +1,11 @@
 {
   "name": "003-analyze-ast",
+  "type": "module",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/analyzeAstCli.js",
+  "bin": {
+    "analyze-ast-cli": "dist/analyzeAstCli.js"
+  },
   "scripts": {
     "dev": "node --experimental-default-config-file",
     "build": "tsc",
