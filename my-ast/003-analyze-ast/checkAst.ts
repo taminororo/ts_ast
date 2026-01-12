@@ -1,6 +1,6 @@
 import type { AstNode } from './createAst.ts';
 import type { Config } from './lintCli.ts';
-import { debug, error, warn } from './console.ts';
+import { debug, error, info, warn } from './console.ts';
  
 export function checkAst(astNode: AstNode, depth = 0, config: Config) {
   const indent = '  '.repeat(depth);
@@ -50,7 +50,39 @@ export function checkAst(astNode: AstNode, depth = 0, config: Config) {
       hasViolation = true;
     }
   }
-  
+ 
+  // 追加: 開始
+  // configのuse-this-in-methodが有効な場合、ルールを適用してASTを検査する
+  if (
+    config['use-this-in-method'] !== 'off' &&
+    astNode.kind === 'ClassDeclaration'
+  ) {
+    const methodDeclarations = astNode.children.filter(
+      (child) => child.kind === 'MethodDeclaration'
+    );
+    if (methodDeclarations.length === 0) return;
+ 
+    const blocks = methodDeclarations.flatMap((method) =>
+      method.children.filter((child) => child.kind === 'Block')
+    );
+    if (blocks.length === 0) return;
+ 
+    const isAllMethodsUsingThis = blocks.every((block) => {
+      return block.text.includes('this.');
+    });
+    if (!isAllMethodsUsingThis) {
+      const message = 'Method should use `this` but does not';
+      if (config['use-this-in-method'] === 'error') {
+        error(message);
+      }
+      if (config['use-this-in-method'] === 'warn') {
+        warn(message);
+      }
+      hasViolation = true;
+    }
+  }
+  // 追加: 終了
+ 
   for (const child of astNode.children) {
     if (checkAst(child, depth + 1, config)) {
       hasViolation = true;
