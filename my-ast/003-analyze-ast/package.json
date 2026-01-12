@@ -1,10 +1,11 @@
 {
-  "name": "003-analyze-ast",
+  "name": "@taminororo/003-analyze-ast",
   "type": "module",
   "version": "1.0.0",
   "main": "dist/analyzeAstCli.js",
   "bin": {
-    "analyze-ast-cli": "dist/analyzeAstCli.js"
+    "analyze-ast-cli": "dist/analyzeAstCli.js",
+    "lint-cli": "./dist/lintCli.js"
   },
   "scripts": {
     "dev": "node --experimental-default-config-file",
@@ -16,8 +17,17 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@types/node": "^22.15.30",
-    "typescript": "^5.8.3"
+    "@types/node": "^22.15.30"
   },
-  "exclude": ["node_modules", "dist", "__mocks__"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "__mocks__"
+  ],
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "typescript": "^5.8.3"
+  }
 }
