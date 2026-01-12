@@ -3,9 +3,9 @@ import { readFile } from 'fs/promises';
 import ts from 'typescript';
 
 export type AstNode = {
-    kind: string;
-    text: string;
-    children: AstNode[];
+    kind: string; // ノードの種別を表すプロパティ
+    text: string; // ノードのテキストを表すプロパティ
+    children: AstNode[]; // 子ノードを格納するプロパティ
 };
 
 function toAstNode(node: ts.Node) {
