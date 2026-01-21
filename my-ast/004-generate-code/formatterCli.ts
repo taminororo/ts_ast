@@ -1,5 +1,7 @@
 #!/usr/bin/env node
  
+// 実際のES LintはJS製
+
 // Node.jsのモジュールをインポートします
 import fs from 'node:fs/promises';
 import path from 'node:path';
