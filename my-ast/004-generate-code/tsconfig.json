@@ -8,7 +8,8 @@
       "forceConsistentCasingInFileNames": true,   // import時のファイル名の大文字・小文字の不一致をエラーにする（OS差によるバグ防止）
       "strict": true,                             // 厳格な型チェックオプションを有効にする
       "allowImportingTsExtensions": true,         // 拡張子付きのTypeScriptファイルのimportを許可
-      "rewriteRelativeImportExtensions": true,    // 相対パスのimportで拡張子を自動的に追加
+      "rewriteRelativeImportExtensions": true, 
+      "traceResolution": true   // 相対パスのimportで拡張子を自動的に追加
     },
     "include": ["**/*.ts"],                       // サブフォルダを含むすべての.tsファイルを対象にする
     "exclude": ["node_modules", "dist", "__mocks__"]           // node_modulesと出力先のdistフォルダは対象外にする
